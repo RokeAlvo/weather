@@ -1,5 +1,7 @@
 # weather
 
+example: https://weather-coral.vercel.app/
+
 ## Project setup
 ```
 yarn

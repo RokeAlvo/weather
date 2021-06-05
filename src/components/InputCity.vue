@@ -48,6 +48,7 @@ export default {
   components: { HistoryBar },
   data() {
     return {
+      isLoading: false,
       history: [],
       snackbar: false,
       valid: true,
@@ -69,12 +70,17 @@ export default {
     this.history = requestHistoryService.get();
   },
   methods: {
-    onInput() {
-      this.isDisabledButton = false;
+    onInput(v) {
+      if (v?.length > 1) this.isDisabledButton = false;
     },
     async selectCity(city) {
-      await this.loadWeather(city);
-      this.searchText = "";
+      if (!this.isLoading) {
+        console.log("начинаем грузить", city);
+        this.isLoading = true;
+        await this.loadWeather(city);
+        this.isLoading = false;
+        console.log("загружено", city);
+      }
     },
     async loadWeather(city) {
       try {
@@ -89,6 +95,7 @@ export default {
         this.snackbar = true;
       } finally {
         this.$refs.form.reset();
+        this.searchText = "";
       }
     },
     async onSubmit() {

@@ -93,7 +93,7 @@ export default {
     },
     async onSubmit() {
       this.$refs.form.validate();
-      this.isDisabledButton = true
+      this.isDisabledButton = true;
       await this.loadWeather(this.searchText);
     },
   },

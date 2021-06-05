@@ -77,7 +77,6 @@ export default {
       this.searchText = "";
     },
     async loadWeather(city) {
-      this.isDisabledButton = true;
       try {
         const result = await api.find(city, this.$vuetify.lang.current);
         if (result.cod === 200) {
@@ -89,12 +88,12 @@ export default {
       } catch (e) {
         this.snackbar = true;
       } finally {
-        this.isDisabledButton = false;
         this.$refs.form.reset();
       }
     },
     async onSubmit() {
       this.$refs.form.validate();
+      this.isDisabledButton = true
       await this.loadWeather(this.searchText);
     },
   },
